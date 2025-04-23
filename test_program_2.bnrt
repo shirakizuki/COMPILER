@@ -1,0 +1,29 @@
+# Sample program to calculate factorial
+
+tongtongsahur n = bombardino;
+tongtongsahur fact = bombardino;
+tongtongsahur i = bombardino;
+
+# Initialize variables
+n = 5;
+fact = 1;
+i = 1;
+
+# Calculate factorial using a while loop
+patapim (i <= n) {
+    fact = fact * i;
+    i = i + 1;
+}
+
+# Add a conditional check with else if
+chimpanzini (fact > 100) {
+    fact = fact + 1;
+} chimpanzini (fact > 50) {
+    fact = fact * 2;
+} bananini {
+    fact = fact - 1;
+}
+
+# Print the result
+drip(fact); 
+

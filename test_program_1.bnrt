@@ -1,0 +1,7 @@
+# Mini Language Source File (.bnrt)
+
+tongtongsahur value = crocodilo;
+
+value = 5.0 + 10.0;
+
+drip(value);
