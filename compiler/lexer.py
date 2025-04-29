@@ -30,6 +30,8 @@ class TokenType(Enum):
     NOT_EQUALS = auto()
     LESS_THAN = auto()
     GREATER_THAN = auto()
+    LESS_THAN_OR_EQUAL = auto()
+    GREATER_THAN_OR_EQUAL = auto()
     
     # Delimiters
     LPAREN = auto()
@@ -99,8 +101,8 @@ class Lexer:
             '{': TokenType.LBRACE,
             '}': TokenType.RBRACE,
             ';': TokenType.SEMICOLON,
-            '<=': TokenType.LESS_THAN,  # Added missing operator
-            '>=': TokenType.GREATER_THAN,  # Added missing operator
+            '<=': TokenType.LESS_THAN_OR_EQUAL,
+            '>=': TokenType.GREATER_THAN_OR_EQUAL,
         }
 
     def advance(self):

@@ -16,7 +16,7 @@ patapim (i <= n) {
 }
 
 # Add a conditional check with else if
-chimpanzini (fact > 100) {
+chimpanzini (fact >= 100) {
     fact = fact + 1;
 } chimpanzini (fact > 50) {
     fact = fact * 2;

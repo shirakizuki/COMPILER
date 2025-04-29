@@ -159,7 +159,8 @@ class SemanticAnalyzer:
             return left_type
             
         elif node.operator.type in [TokenType.EQUALS, TokenType.NOT_EQUALS,
-                                  TokenType.LESS_THAN, TokenType.GREATER_THAN]:
+                                  TokenType.LESS_THAN, TokenType.GREATER_THAN,
+                                  TokenType.LESS_THAN_OR_EQUAL, TokenType.GREATER_THAN_OR_EQUAL]:
             if left_type != right_type:
                 raise SemanticError(
                     f"Type mismatch in comparison at line {node.line}, "

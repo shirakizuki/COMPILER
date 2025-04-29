@@ -324,7 +324,8 @@ class Parser:
         expr = self.parse_additive()
         
         while self.peek().type in [TokenType.EQUALS, TokenType.NOT_EQUALS, 
-                                 TokenType.LESS_THAN, TokenType.GREATER_THAN]:
+                                 TokenType.LESS_THAN, TokenType.GREATER_THAN,
+                                 TokenType.LESS_THAN_OR_EQUAL, TokenType.GREATER_THAN_OR_EQUAL]:
             operator = self.peek()
             self.debug_print(f"Found comparison operator: {operator}")
             self.current += 1
