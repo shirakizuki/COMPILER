@@ -10,6 +10,7 @@ from .lexer import Lexer, LexicalError, Token, TokenType
 from .parser import Parser, ParseError
 from .semantic import SemanticAnalyzer, SemanticError
 from .intermediate import IntermediateCodeGenerator, TACInstruction
+from .codegen import AssemblyGenerator
 from .interpreter import Interpreter
 from .error import ErrorHandler, ErrorReporter
 
@@ -22,10 +23,10 @@ class Compiler:
         self.source_code = source_code
         self.error_handler = ErrorHandler(source_code)
         
-    def compile(self) -> Optional[List[TACInstruction]]:
+    def compile(self) -> Optional[tuple[List[TACInstruction], List[str]]]:
         """
         Compile the source code through all phases.
-        Returns the generated intermediate code if successful, None if errors occurred.
+        Returns the generated intermediate code and assembly code if successful, None if errors occurred.
         """
         try:
             print("\nStarting lexical analysis...")
@@ -59,7 +60,13 @@ class Compiler:
             generator.optimize()
             print("Optimization completed")
             
-            return intermediate_code
+            print("\nGenerating assembly code...")
+            # Assembly Code Generation
+            asm_generator = AssemblyGenerator()
+            assembly_code = asm_generator.generate(intermediate_code)
+            print("Assembly code generated")
+            
+            return intermediate_code, assembly_code
             
         except LexicalError as e:
             print(f"\nLexical Error: {str(e)}")
@@ -97,6 +104,10 @@ def format_tac(instructions: List[TACInstruction]) -> str:
             lines.append(f"{i:4d}: {str(inst)}")
     return "\n".join(lines)
 
+def format_asm(instructions: List[str]) -> str:
+    """Format assembly instructions for output."""
+    return "\n".join(instructions)
+
 def main() -> None:
     """Main entry point for the compiler."""
     if len(sys.argv) != 2:
@@ -117,18 +128,23 @@ def main() -> None:
         sys.exit(1)
         
     compiler = Compiler(source_code)
-    intermediate_code = compiler.compile()
+    result = compiler.compile()
     
     if compiler.error_handler.has_errors():
         print("\nCompilation failed with errors:")
         print(compiler.error_handler.report_errors())
         sys.exit(1)
         
-    if intermediate_code:
+    if result:
+        intermediate_code, assembly_code = result
         print("\nCompilation successful!")
         print("\nGenerated Three-Address Code:")
         print("-" * 40)
         print(format_tac(intermediate_code))
+        print("-" * 40)
+        print("\nGenerated Assembly Code:")
+        print("-" * 40)
+        print(format_asm(assembly_code))
         print("-" * 40)
         print("\nProgram output:")
         print("-" * 40)
